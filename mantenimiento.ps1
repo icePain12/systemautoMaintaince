@@ -70,18 +70,20 @@ function RestoreExecutionPolicy {
 Clear-Host
 Confirm-AdminPrivileges
 # 1. Create restore point
+Write-Host "Creating a System Restore Point..." -ForegroundColor "Cyan"
 createRestoringPoint
 # 2. Set execution policy to bypass.
 BackupAndSetExecutionPolicy
 # 2. Clean temp files
+Write-Host "Cleaning Temporal Files..." -ForegroundColor "Cyan"
 & ".\cleanuptempfiles.ps1"
 # clean disk files
-&".\cleanupDisk.ps1"
-
-
-
-
-
+Write-Host "Cleaning up Disk C:" -ForegroundColor "Cyan"
+Write-Host ""
+# 3 System Repair tool
+Write-Host "Analysing and repairing Windows System Files..." -ForgroundColor "Cyan"
+& ".\systemRepair.ps1"
 # LAST: RESTORE EXECUTION POLICY
 RestoreExecutionPolicy
+Write-Host "We finished!"
 Pause
